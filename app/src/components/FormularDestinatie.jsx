@@ -1,0 +1,33 @@
+import { useState } from 'react';
+
+export default function FormularDestinatie({ onAdd }) {
+  const [oras, setOras] = useState('');
+  const [tara, setTara] = useState('');
+  const [zile, setZile] = useState('');
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (!oras || !tara) return;
+    
+    onAdd({
+      id: crypto.randomUUID(),
+      oras,
+      tara,
+      zile: Number(zile),
+      vizitat: false
+    });
+    
+    setOras('');
+    setTara('');
+    setZile('');
+  }
+
+  return (
+    <form className="formular" onSubmit={handleSubmit}>
+      <input placeholder="Oraș" value={oras} onChange={(e) => setOras(e.target.value)} />
+      <input placeholder="Țară" value={tara} onChange={(e) => setTara(e.target.value)} />
+      <input type="number" placeholder="Zile" value={zile} onChange={(e) => setZile(e.target.value)} />
+      <button type="submit">Adaugă</button>
+    </form>
+  );
+}
